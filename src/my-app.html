@@ -21,11 +21,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
-
 <link rel="lazy-import" href="my-view1.html">
 <link rel="lazy-import" href="my-view2.html">
 <link rel="lazy-import" href="my-view3.html">
 <link rel="lazy-import" href="my-view404.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
 
 <dom-module id="my-app">
   <template>
@@ -36,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         display: block;
       }
-
+      
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
@@ -83,12 +85,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="[[rootPath]]view1">View One</a>
-          <a name="view2" href="[[rootPath]]view2">View Two</a>
-          <a name="view3" href="[[rootPath]]view3">View Three</a>
-        </iron-selector>
+        <app-toolbar></app-toolbar>
+        <paper-item id="button" on-click="toggle" data-collapse="collapse">MASCOTAS</paper-item>
+
+<iron-collapse id="collapse">
+   <paper-listbox>
+  <paper-item>- Anfibios</paper-item>
+  <paper-item>- Mamiferos Domesticos</paper-item>
+  <paper-item>- Peces</paper-item>
+  <paper-item>- Reptiles</paper-item>
+  <paper-item>- Roedores</paper-item>
+
+</iron-collapse>
+
+        <paper-item id="button2" on-click="toggle" data-collapse="collapse2">HABITATS</paper-item>
+
+<iron-collapse id="collapse2">
+   <paper-listbox>
+  <paper-item>- Anfibios</paper-item>
+  <paper-item>- Mamiferos Domesticos</paper-item>
+  <paper-item>- Peces</paper-item>
+  <paper-item>- Reptiles</paper-item>
+  <paper-item>- Roedores</paper-item>
+</paper-listbox>
+</iron-collapse>
+
+        <paper-item id="button3" on-click="toggle" data-collapse="collapse3">ACCESORIOS</paper-item>
+
+<iron-collapse id="collapse3">
+   <paper-listbox>
+  <paper-item>- Anfibios</paper-item>
+  <paper-item>- Mamiferos Domesticos</paper-item>
+  <paper-item>- Peces</paper-item>
+  <paper-item>- Reptiles</paper-item>
+  <paper-item>- Roedores</paper-item>
+</paper-listbox>
+</iron-collapse>
+
       </app-drawer>
 
       <!-- Main content -->
@@ -97,7 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
+            <div main-title>TERRARIOS REPTILIA E.</div>
           </app-toolbar>
         </app-header>
 
@@ -142,6 +175,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return [
           '_routePageChanged(routeData.page)',
         ];
+      }
+
+      toggle(e) {
+        const col=e.target.dataset.collapse;
+        console.log(e.target.dataset.collapse);
+        this.$[col].toggle();
+        this.$.button.setAttribute('aria-expanded', this.$.collapse.opened);
       }
 
       _routePageChanged(page) {
